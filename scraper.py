@@ -1,18 +1,17 @@
 import elasticsearch
-import requests, json, yaml, datetime, time, re
+import requests, json, datetime, time, re
 from bs4 import BeautifulSoup
 
 requests.packages.urllib3.disable_warnings()
 
 # Configurations
-config = 'sites.yaml'
-yamldir = './'
-sites_config = yamldir + config
-sites = yaml.load(file(sites_config, 'r'))
-index_name = sites['index_name']
-index_type = sites['index_type']
-elastic_host = sites['elastic_host']
-elastic_port = sites['elastic_port']
+sites = ['http://marshyski.com', 'http://marshyski.com/man-behind-the-keyboard',
+        'http://marshyski.com/music', 'http://www.npr.org/sections/news/', 'https://news.google.com/']
+
+index_name = "websites"
+index_type = "sites"
+elastic_host = "127.0.0.1"
+elastic_port = "9200"
 
 # Connect to ElasticSearch
 es = elasticsearch.Elasticsearch(elastic_host, port=elastic_port)
@@ -22,7 +21,7 @@ es.indices.delete(index=index_name, ignore=[400, 404])
 es.indices.create(index=index_name, ignore=400)
 
 # Make requests in configuration
-for URL in sites['sites']:
+for URL in sites:
 
     try:
        r = requests.get(URL, verify=False)

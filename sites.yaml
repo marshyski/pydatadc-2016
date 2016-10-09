@@ -1,6 +1,0 @@
-sites: ['http://marshyski.com', 'http://marshyski.com/man-behind-the-keyboard', 'http://marshyski.com/music', 'http://www.cnn.com/', 'https://news.google.com/']
-
-elastic_host : 127.0.0.1
-elastic_port : 9200
-index_name : websites
-index_type : sites
